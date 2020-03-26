@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStore } from '../redux/createStore';
 import { Provider } from 'react-redux';
+import { MainRouter } from '../Router';
 
 const store = createStore();
 
@@ -8,7 +9,7 @@ const store = createStore();
 const Application = () => {
     return (
        <Provider store={store}>
-           <div>hello world</div>
+           <MainRouter/>
        </Provider>
     )
 }
