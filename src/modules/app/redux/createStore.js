@@ -5,12 +5,13 @@ import {
     StoreEnhancer,
     createStore as createStoreBase,
   } from 'redux';
-  import thunk from 'redux-thunk';
-  import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'; 
+import { CustomersReducer } from '../../customer';
 
   
   const rootReducer = combineReducers({
-    auth: () => ({}),
+    customers: CustomersReducer
   });
   const enhancerList = [
     // add enhancers here
