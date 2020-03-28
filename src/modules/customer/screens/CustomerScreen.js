@@ -6,6 +6,7 @@ import { getCustomersSelector, customersLoadingSelector } from '../redux/selecto
 import CustomerListItem from '../components/CustomerListItem';
 import styles from  './CustomerScreen.module.css';
 import { AccountsScreen } from '../../bills';
+import { setSelectedCustomer } from '../redux/actions';
 
 const CustomerScreen = () => {
     const dispatch = useDispatch();
@@ -25,11 +26,12 @@ const CustomerScreen = () => {
         <div className={styles.container}>
             {customers.map(customer => {
                 return (
-                    <CustomerListItem onPress={() => {setModalVisible(true)}} customer={customer} />
+                    <CustomerListItem onPress={(customerId) => {dispatch(setSelectedCustomer(customerId)); setModalVisible(true)}} customer={customer} />
                 )
             })}
 
             <Modal
+            width={900}
             visible={modalVisible}
             onCancel={()=>{setModalVisible(false)}}
             >

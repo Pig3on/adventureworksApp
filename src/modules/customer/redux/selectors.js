@@ -12,3 +12,5 @@ export const resolveCitySelector = (cityId) => {
     }
    }
 }
+
+export const getSelectedCustomerSelector = (state) => state.customers.selectedCustomer;

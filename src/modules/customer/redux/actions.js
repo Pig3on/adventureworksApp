@@ -4,5 +4,7 @@ export const customersLoadingAction = createAction("CUSTOMERS_LOADING");
 export const customersDoneAction = createAction("CUSTOMERS_DONE");
 export const customersErrorAction = createAction("CUSTOMETS_ERROR");
 
+export const setSelectedCustomer = createAction("SELECT_CUSTOMER");
+
 
 

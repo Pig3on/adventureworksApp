@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const CustomerListItem = ({customer, onPress}) => {
     const city = useSelector(resolveCitySelector(customer.CityId))
     return (
-        <div onClick={onPress} className={styles.container}>
+        <div onClick={()=> {onPress(customer.Id)}} className={styles.container}>
             <List.Item className={styles.content}>
                 <div className={styles.item}>{customer.Id}</div>
                 <div className={styles.item}>{customer.Name}</div>

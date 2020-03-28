@@ -1,18 +1,18 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
-import { accoutsLoadingAction, accountsErrorAction, accountsDoneAction } from "./actions";
+import { billsDoneAction, billsErrorAction, billsLoadingAction } from "./actions";
 
 const isLoading = createReducer(false, builder => {
-    builder.addCase(accoutsLoadingAction, ()=> true)
-    .addCase(accountsErrorAction, ()=> false)
-    .addCase(accountsDoneAction, ()=> false);
+    builder.addCase(billsLoadingAction, ()=> true)
+    .addCase(billsErrorAction, ()=> false)
+    .addCase(billsDoneAction, ()=> false);
 });
 
 const error = createReducer('', builder => {
-    builder.addCase(accountsErrorAction, (state,action) => action.payload)
+    builder.addCase(billsErrorAction, (state,action) => action.payload)
 })
 
 const list = createReducer([], builder => {
-    builder.addCase(accountsDoneAction, (state,action) => action.payload);
+    builder.addCase(billsDoneAction, (state,action) => action.payload);
 });
 
 
