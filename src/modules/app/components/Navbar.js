@@ -20,10 +20,6 @@ const NavbarUi = () => {
           <HomeOutlined/>
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="contact">
-          <ContactsOutlined />
-          <Link to="/contacts">Contacts</Link>
-        </Menu.Item>
         <Menu.Item key="login">
           <LoginOutlined />
           <Link to="/login">Login</Link>

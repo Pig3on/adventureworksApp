@@ -17,7 +17,7 @@ import { CustomerScreen } from '../customer';
               <Route exact path="/">
                  <CustomerScreen />
                 </Route>
-                <Route path="/contacts">
+                <Route path="/bills/:id">
                     <div>Another route</div>
                 </Route>
                 <Route path="/login">

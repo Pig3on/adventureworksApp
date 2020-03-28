@@ -8,10 +8,13 @@ import {
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'; 
 import { CustomersReducer } from '../../customer';
-
+import { CitiesReducer } from '../../cities';
+import { BillsReducer } from '../../bills';
   
   const rootReducer = combineReducers({
-    customers: CustomersReducer
+    customers: CustomersReducer,
+    cities: CitiesReducer,
+    bills: BillsReducer,
   });
   const enhancerList = [
     // add enhancers here
