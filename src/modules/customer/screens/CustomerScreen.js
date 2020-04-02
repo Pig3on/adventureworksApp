@@ -7,6 +7,7 @@ import CustomerListItem from '../components/CustomerListItem';
 import styles from  './CustomerScreen.module.css';
 import { AccountsScreen } from '../../bills';
 import { setSelectedCustomer } from '../redux/actions';
+import { PageableList } from '../../../ui/components/PageableList/PageableList';
 
 const CustomerScreen = () => {
     const dispatch = useDispatch();
@@ -24,11 +25,11 @@ const CustomerScreen = () => {
     }
     return (
         <div className={styles.container}>
-            {customers.map(customer => {
+            <PageableList items={customers} itemsPerPage={10} renderItem={(item)=> {
                 return (
-                    <CustomerListItem onPress={(customerId) => {dispatch(setSelectedCustomer(customerId)); setModalVisible(true)}} customer={customer} />
+                    <CustomerListItem onPress={(customerId) => {dispatch(setSelectedCustomer(customerId)); setModalVisible(true)}} customer={item} />
                 )
-            })}
+            }} />
 
             <Modal
             width={900}

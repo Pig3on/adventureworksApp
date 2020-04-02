@@ -20,15 +20,3 @@ export const BillItem = ({bill, onPress}) => {
         </div>
     )
 }
-
-
-/*
-Id(pin):44292
-Date(pin):"2001-10-01T00:00:00"
-BillNumber(pin):"SO44292"
-CustomerId(pin):541
-SellerId(pin):275
-CreditCardId(pin):15875
-Comment(pin):null
-
-*/

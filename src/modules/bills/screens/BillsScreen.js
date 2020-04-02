@@ -5,6 +5,7 @@ import {getBills} from '../redux/thunks';
 import { billsSelector, billsLoading } from '../redux/selectors';
 import { BillItem } from '../components/BillItem';
 import { Spin } from 'antd';
+import { PageableList } from '../../../ui/components/PageableList/PageableList';
 export const BillsScreen = () => {
     const selectedCustomer = useSelector(getSelectedCustomerSelector);
     const bills = useSelector(billsSelector);
@@ -21,11 +22,7 @@ export const BillsScreen = () => {
     }
     return (
         <div>
-           {bills.map((bill)=> {
-              return (
-                <BillItem bill={bill} />
-              )
-           })}
+           <PageableList items={bills} itemsPerPage={10} renderItem={(item)=> {return ( <BillItem bill={item} />)}}/>
         </div>
     )
 }
