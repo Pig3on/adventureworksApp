@@ -8,3 +8,5 @@ export const setSelectedCustomer = createAction("SELECT_CUSTOMER");
 
 
 
+export const setSearchTerm = createAction("SET_SEARCH_TERM");
+

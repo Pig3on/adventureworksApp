@@ -1,4 +1,12 @@
-export const getCustomersSelector = (state) => state.customers.customers;
+export const getCustomersSelector = (state) => {
+    const currentSearchTerm = getCurrentSearchTerm(state);
+
+    if(currentSearchTerm){
+        return state.customers.customers.filter(customer=> customer.Surname.includes(currentSearchTerm));
+    }else{
+        return state.customers.customers;
+    }
+};
 export const customersLoadingSelector = (state) => state.customers.isLoading;
 export const resolveCitySelector = (cityId) => {
    return (state)=> {
@@ -14,3 +22,5 @@ export const resolveCitySelector = (cityId) => {
 }
 
 export const getSelectedCustomerSelector = (state) => state.customers.selectedCustomer;
+
+export const getCurrentSearchTerm = (state) => state.customers.currentSearchTerm;
