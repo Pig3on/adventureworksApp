@@ -6,13 +6,15 @@ import { billsSelector, billsLoading } from '../redux/selectors';
 import { BillItem } from '../components/BillItem';
 import { Spin } from 'antd';
 import { PageableList } from '../../../ui/components/PageableList/PageableList';
+import { useHistory } from 'react-router-dom';
 export const BillsScreen = () => {
     const selectedCustomer = useSelector(getSelectedCustomerSelector);
     const bills = useSelector(billsSelector);
     const isLoading = useSelector(billsLoading);
     const dispatch = useDispatch();
+    const history = useHistory();
     useEffect(()=>{
-        dispatch(getBills(selectedCustomer))
+        dispatch(getBills(selectedCustomer.Id))
     },[selectedCustomer,dispatch])
 
     if(isLoading){
@@ -22,7 +24,7 @@ export const BillsScreen = () => {
     }
     return (
         <div>
-           <PageableList items={bills} itemsPerPage={10} renderItem={(item)=> {return ( <BillItem bill={item} />)}}/>
+           <PageableList items={bills} itemsPerPage={10} renderItem={(item)=> {return ( <BillItem bill={item} onPress={()=> {history.push('/billitems/'+ item.Id)}} />)}}/>
         </div>
     )
 }

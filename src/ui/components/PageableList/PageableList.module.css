@@ -1,0 +1,8 @@
+.divider {
+    flex:1;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+}

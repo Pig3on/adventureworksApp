@@ -1,13 +1,13 @@
 import { billsLoadingAction, billsErrorAction, billsDoneAction } from "./actions"
-
+import {apiClientFactory} from '../../api';
 export function getBills(customerId){
     return async (dispatch) => {
         try{
             dispatch(billsLoadingAction());
-            const accountsResponse = await fetch('http://www.fulek.com/nks/api/aw/customerbills/' + customerId)
-            const accounts = await accountsResponse.json();
+            const accounts = await apiClientFactory.getRestApiClient().get('/customerbills/'+ customerId)
 
-            dispatch(billsDoneAction(accounts));
+           
+            dispatch(billsDoneAction(accounts.data));
         }catch(e){
             dispatch(billsErrorAction(e.message));
         }

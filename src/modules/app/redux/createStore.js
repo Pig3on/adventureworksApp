@@ -10,11 +10,14 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { CustomersReducer } from '../../customer';
 import { CitiesReducer } from '../../cities';
 import { BillsReducer } from '../../bills';
-  
+import { ItemsReducer } from '../../items';
+import { AuthReducer } from '../../auth';
   const rootReducer = combineReducers({
     customers: CustomersReducer,
     cities: CitiesReducer,
     bills: BillsReducer,
+    items: ItemsReducer,
+    auth: AuthReducer,
   });
   const enhancerList = [
     // add enhancers here

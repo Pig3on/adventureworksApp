@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import {
     HomeOutlined,
-    ContactsOutlined,
+    UserAddOutlined,
     LoginOutlined,
   } from '@ant-design/icons';
 
@@ -23,6 +23,10 @@ const NavbarUi = () => {
         <Menu.Item key="login">
           <LoginOutlined />
           <Link to="/login">Login</Link>
+        </Menu.Item>
+        <Menu.Item key="register">
+          <UserAddOutlined />
+          <Link to="/register">Register</Link>
         </Menu.Item>
       </Menu>
     )

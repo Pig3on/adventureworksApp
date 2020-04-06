@@ -31,7 +31,7 @@ const CustomerScreen = () => {
             <SearchFIlter/>
             <PageableList items={customers} itemsPerPage={10} renderItem={(item)=> {
                 return (
-                    <CustomerListItem onPress={(customerId) => {dispatch(setSelectedCustomer(customerId)); setModalVisible(true)}} customer={item} />
+                    <CustomerListItem onPress={(customer) => {dispatch(setSelectedCustomer(customer)); setModalVisible(true)}} customer={item} />
                 )
             }} />
 
