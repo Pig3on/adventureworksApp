@@ -1,6 +1,7 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
 import { registerDone, registerLoading, registerError } from "./actions";
-
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from "redux-persist";
 const currentLoggedUser = createReducer(null, builder => {
     builder.addCase(registerDone,(_,action)=> action.payload)
 })
@@ -16,4 +17,11 @@ const error = createReducer(null, builder => {
 })
 
 
-export const reducer = combineReducers({currentLoggedUser,isLoading,error});
+export const persistConfig = {
+    key: 'auth',
+    storage,
+    whitelist: ['currentLoggedUser']
+};
+
+
+export const reducer = persistReducer(persistConfig, combineReducers({currentLoggedUser,isLoading,error}));
