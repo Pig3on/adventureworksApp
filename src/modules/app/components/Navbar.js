@@ -6,6 +6,8 @@ import {
     HomeOutlined,
   } from '@ant-design/icons';
 import { UserBadge } from '../../auth';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../auth/redux/actions';
 
 const NavbarUi = () => {
     const [current,setCurrent] = useState('');
@@ -13,6 +15,8 @@ const NavbarUi = () => {
       const handleClick = e => {    
         setCurrent(e.key);
       };
+
+      const dispatch = useDispatch();
     return (
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item key="home">
@@ -21,6 +25,9 @@ const NavbarUi = () => {
         </Menu.Item>
         <Menu.Item>
             <UserBadge />
+        </Menu.Item>
+        <Menu.Item>
+            <div onClick={()=> {dispatch(logout())}}>Logout</div>
         </Menu.Item>
       </Menu>
     )

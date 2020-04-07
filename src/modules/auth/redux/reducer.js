@@ -1,9 +1,10 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
-import { registerDone, registerLoading, registerError } from "./actions";
+import { registerDone, registerLoading, registerError, logout } from "./actions";
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from "redux-persist";
 const currentLoggedUser = createReducer(null, builder => {
     builder.addCase(registerDone,(_,action)=> action.payload)
+    .addCase(logout,()=> null);
 })
 
 const isLoading = createReducer(false, builder => {
