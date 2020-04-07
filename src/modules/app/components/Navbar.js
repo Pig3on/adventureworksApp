@@ -7,6 +7,7 @@ import {
     UserAddOutlined,
     LoginOutlined,
   } from '@ant-design/icons';
+import { UserBadge } from '../../auth';
 
 const NavbarUi = () => {
     const [current,setCurrent] = useState('');
@@ -15,7 +16,7 @@ const NavbarUi = () => {
         setCurrent(e.key);
       };
     return (
-        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item key="home">
           <HomeOutlined/>
           <Link to="/">Home</Link>
@@ -24,9 +25,8 @@ const NavbarUi = () => {
           <LoginOutlined />
           <Link to="/login">Login</Link>
         </Menu.Item>
-        <Menu.Item key="register">
-          <UserAddOutlined />
-          <Link to="/register">Register</Link>
+        <Menu.Item>
+            <UserBadge />
         </Menu.Item>
       </Menu>
     )

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import {Form,Input,Button} from 'antd'
+import {Form,Input,Button, Upload, message} from 'antd'
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../redux/thunks';
+import { UploadOutlined } from '@ant-design/icons';
 
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
@@ -17,16 +18,66 @@ const smth =  {
     alignItems: 'center',
     justifyContent: 'center',
 }
+
+/* 
+name: "safd"
+username: "sfsad@sfdf.com"
+password: "pass1"
+avatar: "C:\fakepath\Screen Shot 2020-03-27 at 6.37.52 PM.png"
+__proto__: Object
+
+*/
+
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
+
 const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 function RegisterScreen() {
+    const [imageUrl,setImageUrl]= useState(null);
     const dispatch = useDispatch();
-    const onFinish = values => {
-        dispatch(registerUser(values));
+    const onFinish = (values) => {
+      const user = {
+        name: values.name,
+        username: values.username,
+        password: values.password,
+        img: imageUrl,
+      }
+        dispatch(registerUser(user));
       };
     
       const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
       };
+
+      function beforeUpload(file) {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+          message.error('You can only upload JPG/PNG file!');
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+          message.error('Image must smaller than 2MB!');
+        }
+        return isJpgOrPng && isLt2M;
+      }
+
+      const onUploadChange = (info) => {
+        if (info.file.status === 'done') {
+          // Get this url from response in real world.
+          getBase64(info.file.originFileObj, imageUrl =>
+            setImageUrl(imageUrl)
+          );
+        }
+      }
     return (
         <div style={smth}>
         <Form {...layout} onFinish={onFinish} onFinishFailed={onFinishFailed}>
@@ -39,6 +90,21 @@ function RegisterScreen() {
           <Form.Item  label="Password" secure name="password" rules={[{ required: true, message: 'Please input your username!' }]}>
               <Input.Password/>
           </Form.Item>
+          <Upload
+            customRequest={dummyRequest}
+            name="avatar"
+            listType="picture-card"
+            className="avatar-uploader"
+            showUploadList={false}
+            beforeUpload={beforeUpload}
+            onChange={onUploadChange}
+            >
+            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 
+             <div>
+             <div className="ant-upload-text">Upload</div>
+            </div>
+           }
+          </Upload>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
                 Register

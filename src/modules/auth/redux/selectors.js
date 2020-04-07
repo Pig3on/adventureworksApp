@@ -1,2 +1,2 @@
-export const getCurrentUserSelector = (state) => state.auth.currentUser;
-export const getUserTokenSelector = (state) => state.auth.currentUser.token;
+export const getCurrentUserSelector = (state) => state.auth.currentLoggedUser;
+export const getUserTokenSelector = (state) => state.auth.currentLoggedUser.token;
