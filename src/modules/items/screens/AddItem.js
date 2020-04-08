@@ -20,7 +20,6 @@ function AddItem({billId}) {
             productId: formSubmitData.current.product,
             quantity: formSubmitData.current.quantity,
         }
-        console.log(formSubmitData)
         addProduct(product).then(()=> {
             alert("Product added")
             

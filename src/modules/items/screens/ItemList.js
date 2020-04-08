@@ -23,7 +23,7 @@ export const ItemList = ({match}) => {
         const { id } = match.params;
         dispatch(getItemsByBilId(id))
     },[dispatch, match.params])
-    console.log(items);
+  
     if(isLoading){
         return (
             <Spin />

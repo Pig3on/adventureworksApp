@@ -7,7 +7,7 @@ function UserData({customer,isLoading,billId}) {
             <Spin/>
         )
     }
-    console.log(customer)
+
     return (
        <div>
         <div>{customer.Name}</div>

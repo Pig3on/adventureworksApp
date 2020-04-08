@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import {Form,Input,Button, Upload, message} from 'antd'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../redux/thunks';
 import { UploadOutlined } from '@ant-design/icons';
+import { getCurrentUserSelector } from '../redux/selectors';
 
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
@@ -41,9 +42,11 @@ const dummyRequest = ({ file, onSuccess }) => {
 };
 
 const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-function RegisterScreen() {
+function RegisterScreen({edit}) {
     const [imageUrl,setImageUrl]= useState(null);
     const dispatch = useDispatch();
+    let currentUser = useSelector(getCurrentUserSelector);
+
     const onFinish = (values) => {
       const user = {
         name: values.name,
@@ -78,30 +81,35 @@ function RegisterScreen() {
           );
         }
       }
+      if(!currentUser) {
+        currentUser = {}
+      }
+
     return (
         <div style={smth}>
         <Form {...layout} onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          <Form.Item  label="Name" name="name" rules={[{ required: true, message: 'Please input your username!' }]}>
-            <Input />
+          <Form.Item  label="Name" name="name"  rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Input value={currentUser.name} />
           </Form.Item>
           <Form.Item  label="Email" name="username" rules={[{ required: true, message: 'Please input your username!' },{pattern: emailCheck, message:"Email not valid"}]}>
-            <Input />
+            <Input value={currentUser.username || ''} />
           </Form.Item>
-          <Form.Item  label="Password" secure name="password" rules={[{ required: true, message: 'Please input your username!' }]}>
-              <Input.Password/>
+          <Form.Item  label="Password" name="password" rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Input.Password value={currentUser.password || ''}/>
           </Form.Item>
           <Upload
             customRequest={dummyRequest}
             name="avatar"
+            
             listType="picture-card"
             className="avatar-uploader"
             showUploadList={false}
             beforeUpload={beforeUpload}
             onChange={onUploadChange}
             >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 
+            {imageUrl || currentUser ? <img src={currentUser.img || imageUrl} alt="avatar" style={{ width: '100%' }} /> : 
              <div>
-             <div className="ant-upload-text">Upload</div>
+              <div className="ant-upload-text">Upload</div>
             </div>
            }
           </Upload>

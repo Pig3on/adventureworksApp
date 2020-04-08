@@ -3,15 +3,18 @@ import { createStore } from '../redux/createStore';
 import { Provider } from 'react-redux';
 import { MainRouter } from '../Router';
 import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const store = createStore();
 
-persistStore(store);
+const persistor = persistStore(store);
 
 const Application = () => {
     return (
        <Provider store={store}>
-           <MainRouter/>
+           <PersistGate persistor={persistor}>
+            <MainRouter/>
+           </PersistGate>
        </Provider>
     )
 }

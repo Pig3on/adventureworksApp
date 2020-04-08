@@ -10,10 +10,10 @@ export const PageableList = ({items, renderItem, itemsPerPage}) => {
     
     const calculatePagedItems = useCallback(()=> {
         const tempArray = []
-        console.log(items);
+      
         for (let i = 0; i < items.length; i+= itemsPerPage) {
            const temparray = items.slice(i,i+itemsPerPage);
-           console.log(temparray)
+          
            tempArray.push(temparray);
         }
         setPagedItems(tempArray);

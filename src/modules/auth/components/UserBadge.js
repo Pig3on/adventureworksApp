@@ -22,10 +22,12 @@ function UserBadge() {
         )
     }
     return (
-          <div>
-          {`${user.username}'s Profile`} 
-            <img style={image} alt="Users Avatar" src={user.img}/>
-          </div>
+          <Link to="/edit">
+            <div>
+            {`${user.username}'s Profile`} 
+                <img style={image} alt="Users Avatar" src={user.img}/>
+            </div>
+        </Link>
     )
 }
 
