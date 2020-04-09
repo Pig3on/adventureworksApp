@@ -1,12 +1,12 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Button } from 'antd';
 
 import styles from './ItemListItem.module.css';
 import { format } from 'date-fns';
 
-export const ItemListItem = ({item, onPress}) => {
+export const ItemListItem = ({item, onPress, onSecondPress}) => {
     return (
-        <div onClick={()=> {}} className={styles.container}>
+        <div onClick={onPress} className={styles.container}>
             <List.Item className={styles.content}>
                 <div className={styles.item}>{item.Id}</div>
                 <div className={styles.item}>{item.Product.Name}</div>
@@ -15,6 +15,9 @@ export const ItemListItem = ({item, onPress}) => {
                 <div className={styles.item}>{item.Quantity}</div>
                 <div className={styles.item}>{item.PricePerPiece}</div>
                 <div className={styles.item}>{item.TotalPrice}</div>
+                <div className={styles.item}>
+                    <Button onClick={onSecondPress} danger >Delete</Button>
+                </div>
             </List.Item>
         </div>
     )

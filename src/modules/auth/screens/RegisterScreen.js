@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import React, { useState } from 'react'
+
 import {Form,Input,Button, Upload, message} from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../redux/thunks';
-import { UploadOutlined } from '@ant-design/icons';
+import { registerUser, updateUser } from '../redux/thunks';
 import { getCurrentUserSelector } from '../redux/selectors';
 
 const tailLayout = {
@@ -46,7 +45,6 @@ function RegisterScreen({edit}) {
     const [imageUrl,setImageUrl]= useState(null);
     const dispatch = useDispatch();
     let currentUser = useSelector(getCurrentUserSelector);
-
     const onFinish = (values) => {
       const user = {
         name: values.name,
@@ -54,7 +52,12 @@ function RegisterScreen({edit}) {
         password: values.password,
         img: imageUrl,
       }
-        dispatch(registerUser(user));
+        if(edit){
+          user.id = currentUser.Id; 
+          dispatch(updateUser(user));
+        }else {
+          dispatch(registerUser(user));
+        }
       };
     
       const onFinishFailed = errorInfo => {
@@ -87,15 +90,15 @@ function RegisterScreen({edit}) {
 
     return (
         <div style={smth}>
-        <Form {...layout} onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          <Form.Item  label="Name" name="name"  rules={[{ required: true, message: 'Please input your username!' }]}>
-            <Input value={currentUser.name} />
+        <Form {...layout} initialValues={{name: currentUser.name || '', username: currentUser.username || '', password: currentUser.password || '' }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+          <Form.Item  label="Name" name="name" rules={[{ required: true, message: 'Required!', }]}>    
+            <Input />
           </Form.Item>
-          <Form.Item  label="Email" name="username" rules={[{ required: true, message: 'Please input your username!' },{pattern: emailCheck, message:"Email not valid"}]}>
-            <Input value={currentUser.username || ''} />
+          <Form.Item  label="Email" name="username"  rules={[{ required: true, message: 'Required!', }, {pattern: emailCheck, message:"Email not valid"}]}>
+              <Input />
           </Form.Item>
-          <Form.Item  label="Password" name="password" rules={[{ required: true, message: 'Please input your username!' }]}>
-            <Input.Password value={currentUser.password || ''}/>
+          <Form.Item  label="Password" name="password" >
+             <Input.Password  />
           </Form.Item>
           <Upload
             customRequest={dummyRequest}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {getItemsByBilId} from '../redux/thunks';
+import {getItemsByBilId, removeItem} from '../redux/thunks';
 import { getBillItems, areBillItemsLoading, getTotalPrice } from '../redux/selectors';
 import { ItemListItem } from '../components/ItemListItem';
 import { PageableList } from '../../../ui/components/PageableList/PageableList';
@@ -10,6 +10,7 @@ import UserData from '../components/UserData/UserData';
 import { getSelectedCustomerSelector, customersLoadingSelector } from '../../customer/redux/selectors';
 import { Link } from 'react-router-dom';
 import AddItem from './AddItem';
+
 
 export const ItemList = ({match}) => {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export const ItemList = ({match}) => {
                 <UserData customer={customer} loading={isCustomerLoading} billId={match.params.id}/>
                 <Link>Add items to account</Link>
            </div>
-           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem item={item} />)}} itemsPerPage={10} />
+           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem onSecondPress={()=> {dispatch(removeItem(item.Id))}} item={item} />)}} itemsPerPage={10} />
            <BillData totalPrice={totalPrice} />
         </div>
     )

@@ -10,4 +10,8 @@ export const loginDone = createAction("LOGIN_DONE");
 export const loginError = createAction("LOGIN_ERROR");
 
 
+export const updateLoading = createAction("UPDATE_LOADING");
+export const updateDone = createAction("UPDATE_DONE");
+export const updateError = createAction("UPDATE_ERROR");
+
 export const logout = createAction("LOGOUT");

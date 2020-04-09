@@ -21,7 +21,9 @@ import LoginScreen from '../auth/screens/LoginScreen';
                 </Route>
                 <Route component={RegisterScreen} exact path="/register" />
                 <Route component={LoginScreen} exact path="/login" />
-                <Route component={RegisterScreen} exact path="/edit" />
+                <Route  exact path="/edit">
+                    <RegisterScreen edit />
+                </Route>
                 <Route exact component={ItemList} path="/billitems/:id" />
                 <Route path="/login">
                    <div>LoginRoute</div>

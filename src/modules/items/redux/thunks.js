@@ -1,4 +1,4 @@
-import { itemsLoading, itemsDone, itemsError } from "./actions"
+import { itemsLoading, itemsDone, itemsError,removeItemAction } from "./actions"
 import { makeSureSelectedCustomerExists } from "../../customer/redux/thunks";
 import { apiClientFactory } from "../../api";
 
@@ -38,4 +38,11 @@ export async function loadProducts(subcategoryId) {
 
 export async function addProduct(product) {
     return await apiClientFactory.getRestApiClient().post("/additem", product);
+}
+
+export function removeItem(itemId) {
+    return async (dispatch)=> {
+        await apiClientFactory.getRestApiClient().post('/deleteItem', {id: itemId});
+        dispatch(removeItemAction(itemId));
+    }
 }

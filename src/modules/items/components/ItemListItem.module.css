@@ -3,14 +3,6 @@
 .content {
 
 }
-
-.container:hover {
-   -webkit-box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
-    -moz-box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
-    box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
-    cursor: pointer;
-}
-
 .item {
     flex:1;
     display: flex;
