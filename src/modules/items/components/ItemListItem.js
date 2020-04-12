@@ -3,9 +3,12 @@ import { List, Button } from 'antd';
 
 import styles from './ItemListItem.module.css';
 import { format } from 'date-fns';
+import { useAuth } from '../../auth';
 
-export const ItemListItem = ({item, onPress, onSecondPress}) => {
-    return (
+export const ItemListItem = ({item, onPress, onSecondPress,isLoggedin}) => {
+  
+
+     return (
         <div onClick={onPress} className={styles.container}>
             <List.Item className={styles.content}>
                 <div className={styles.item}>{item.Id}</div>
@@ -15,9 +18,9 @@ export const ItemListItem = ({item, onPress, onSecondPress}) => {
                 <div className={styles.item}>{item.Quantity}</div>
                 <div className={styles.item}>{item.PricePerPiece}</div>
                 <div className={styles.item}>{item.TotalPrice}</div>
-                <div className={styles.item}>
-                    <Button onClick={onSecondPress} danger >Delete</Button>
-                </div>
+                {isLoggedin &&<div className={styles.item}>
+                     <Button onClick={onSecondPress} danger >Delete</Button>
+                </div>}
             </List.Item>
         </div>
     )

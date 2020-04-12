@@ -6,22 +6,21 @@ import {
     HomeOutlined,
     LoginOutlined
   } from '@ant-design/icons';
-import { UserBadge } from '../../auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { UserBadge, useAuth } from '../../auth';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../auth/redux/actions';
-import { getCurrentUserSelector } from '../../auth/redux/selectors';
+
 
 const NavbarUi = () => {
     const [current,setCurrent] = useState('');
-    
+    const {isLoggedIn} = useAuth();
       const handleClick = e => {    
         setCurrent(e.key);
       };
-      const currentUser = useSelector(getCurrentUserSelector);
-
+     
       const dispatch = useDispatch();
     return (
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" theme={"dark"}>
         <Menu.Item key="home">
           <HomeOutlined/>
           <Link to="/">Home</Link>
@@ -30,7 +29,7 @@ const NavbarUi = () => {
             <UserBadge />
         </Menu.Item>
         {
-          currentUser === null ?  <Menu.Item key="login">
+          !isLoggedIn ?  <Menu.Item key="login">
           <LoginOutlined/>
           <Link to="/login">Login</Link>
         </Menu.Item> :

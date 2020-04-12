@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './CustomerList.module.css';
-import {List} from 'antd';
+import {List, Typography} from 'antd';
 import {resolveCitySelector} from '../redux/selectors';
 import { useSelector } from 'react-redux';
 
@@ -8,13 +8,13 @@ const CustomerListItem = ({customer, onPress}) => {
     const city = useSelector(resolveCitySelector(customer.CityId))
     return (
         <div onClick={()=> {onPress(customer)}} className={styles.container}>
-            <List.Item className={styles.content}>
-                <div className={styles.item}>{customer.Id}</div>
-                <div className={styles.item}>{customer.Name}</div>
-                <div className={styles.item}>{customer.Surname}</div>
-                <div className={styles.item}>{customer.Email}</div>
-                <div className={styles.item}>{customer.Telephone}</div>
-                <div className={styles.item}>{city}</div>
+        <List.Item className={styles.content}>
+        <List.Item.Meta
+          title={
+          <Typography.Text>{`${customer.Name} ${customer.Surname}`}</Typography.Text>
+          }
+          description= {`${customer.Email} . ${customer.Telephone}. ${city}`}
+        />
             </List.Item>
         </div>
     )

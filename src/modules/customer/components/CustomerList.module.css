@@ -5,9 +5,9 @@
 }
 
 .container:hover {
-   -webkit-box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
-    -moz-box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
-    box-shadow: 5px 10px 13px rgb(0, 0, 0,0.6);
+    -webkit-box-shadow: 10px 10px 169px -23px rgba(0,1,82,1);
+    -moz-box-shadow: 10px 10px 169px -23px rgba(0,1,82,1);
+    box-shadow: 10px 10px 169px -23px rgba(0,1,82,1);
     cursor: pointer;
 }
 

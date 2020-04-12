@@ -4,18 +4,30 @@ import {
     Switch,
     Route,
   } from "react-router-dom";
+import {browserHistory} from 'react-router';
 import Navbar from './components/Navbar';
 import { CustomerScreen } from '../customer';
 import { ItemList } from '../items';
 import RegisterScreen from '../auth/screens/RegisterScreen';
 import LoginScreen from '../auth/screens/LoginScreen';
 
+import { Layout } from 'antd';
+
+import { createBrowserHistory } from 'history';
+
+const { Header, Footer, Sider, Content } = Layout;
+
+export const history = createBrowserHistory();
 
   export const MainRouter = () => {
       return(
-          <Router>
-              <Navbar />
-              <Switch>
+          <Router history={history}>
+            <Layout>
+             <Header>
+               <Navbar />
+             </Header>
+            <Content style={{ padding: '0 50px' }} >
+            <Switch>
                 <Route exact path="/">
                  <CustomerScreen />
                 </Route>
@@ -25,10 +37,13 @@ import LoginScreen from '../auth/screens/LoginScreen';
                     <RegisterScreen edit />
                 </Route>
                 <Route exact component={ItemList} path="/billitems/:id" />
-                <Route path="/login">
-                   <div>LoginRoute</div>
-                </Route>
+             
               </Switch>
+            </Content>
+            <Footer>
+              &copy; Algebra
+            </Footer> 
+            </Layout>
           </Router>
       )
   }
