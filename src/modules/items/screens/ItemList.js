@@ -33,13 +33,16 @@ export const ItemList = ({match}) => {
             <Spin />
         )
     }
-    console.log(isLoggedIn)
     return (
         <div>
-           <div>
+           <div style={{display:'flex', flexDirection:'row'}}>
+           <div style={{flex:"1"}} />
+               <div>
+               <UserData customer={customer} loading={isCustomerLoading} billId={match.params.id}/>
+                {isLoggedIn && <Button onClick={()=> {setIsFormShown(!isFormShown)}}>{isFormShown ? "Hide" : "Add item to account"}</Button>} 
                 {isFormShown && <AddItem billId={match.params.id} />}
-                <UserData customer={customer} loading={isCustomerLoading} billId={match.params.id}/>
-                {isLoggedIn && <Button onClick={()=> {setIsFormShown(!isFormShown)}}>{isFormShown ? "Hide" : "Add item to account"}</Button>}
+               </div>
+               <div style={{flex:"1"}}/ >
            </div>
            <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {dispatch(removeItem(item.Id))}} item={item} />)}} itemsPerPage={10} />
            <BillData totalPrice={totalPrice} />

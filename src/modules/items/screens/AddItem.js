@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Select } from 'antd';
+import { Select, Button, Form } from 'antd';
 import { loadCategories, loadSubCategories, loadProducts, addProduct } from '../redux/thunks';
 const {Option} = Select;
 const formDefaultValue = {
@@ -71,6 +71,7 @@ function AddItem({billId}) {
     
     return (
         <form onSubmit={onSubmit}>
+            <Form.Item>
             <div>Category</div>
            <Select disabled={isFormLoading}  style={{ width: 120 }} onChange={onCategoryChange}>
              {formData.categories.map(category => {
@@ -79,6 +80,8 @@ function AddItem({billId}) {
                  )
              })}
             </Select>
+            </Form.Item>
+            <Form.Item>
             <div>Subcategory</div>
             <Select disabled={isFormLoading} style={{ width: 120 }} onChange={onSubCategoryChange}>
             {formData.subcategories.map(subcategory => {
@@ -87,6 +90,10 @@ function AddItem({billId}) {
                  )
              })}
             </Select>
+            </Form.Item>
+            <Form.Item>
+
+            
             <div>Products</div>
             <Select disabled={isFormLoading} style={{ width: 120 }} onChange={onProductChange}>
             {formData.products.map(product => {
@@ -95,6 +102,8 @@ function AddItem({billId}) {
                  )
              })}
             </Select>
+            </Form.Item>
+            <Form.Item>
             <div>Quantity</div>
             <Select defaultValue={1} disabled={isFormLoading} style={{ width: 120 }} onChange={onQuantityChange}>
                 <Option value={1}>1</Option>
@@ -108,8 +117,12 @@ function AddItem({billId}) {
                 <Option value={9}>9</Option>
                 <Option value={10}>10</Option>
             </Select>
-        
-            <input disabled={isFormLoading} type="submit" />
+             </Form.Item>
+            <Form.Item>
+                <Button type="primary" disabled={isFormLoading} htmlType="submit">
+                Submit
+                </Button>
+            </Form.Item>
         </form>
     )
 }

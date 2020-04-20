@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spin } from 'antd'
+import { Spin, Card } from 'antd'
 
 function UserData({customer,isLoading,billId}) {
     if(isLoading || !customer) {
@@ -9,12 +9,12 @@ function UserData({customer,isLoading,billId}) {
     }
 
     return (
-       <div>
+    <Card title="Customer info" bordered={false}>
         <div>{customer.Name}</div>
         <div>{billId}</div>
         <div>{customer.Telephone}</div>
         <div>{customer.Email}</div>
-       </div>
+      </Card>
     )
 }
 

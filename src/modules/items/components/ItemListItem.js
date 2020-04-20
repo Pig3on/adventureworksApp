@@ -1,26 +1,31 @@
 import React from 'react';
-import { List, Button } from 'antd';
+import { List, Button, Typography } from 'antd';
 
 import styles from './ItemListItem.module.css';
-import { format } from 'date-fns';
 import { useAuth } from '../../auth';
 
 export const ItemListItem = ({item, onPress, onSecondPress,isLoggedin}) => {
-  
-
+    const {isLoggedIn } = useAuth()
      return (
         <div onClick={onPress} className={styles.container}>
-            <List.Item className={styles.content}>
-                <div className={styles.item}>{item.Id}</div>
-                <div className={styles.item}>{item.Product.Name}</div>
-                <div className={styles.item}>{item.Product.Number}</div>
-                <div className={styles.item}>{item.Product.Color || "-"}</div>
-                <div className={styles.item}>{item.Quantity}</div>
-                <div className={styles.item}>{item.PricePerPiece}</div>
-                <div className={styles.item}>{item.TotalPrice}</div>
-                {isLoggedin &&<div className={styles.item}>
-                     <Button onClick={onSecondPress} danger >Delete</Button>
-                </div>}
+            <List.Item className={styles.content}
+               actions={isLoggedin ? [
+                <Button type="danger" onClick={onSecondPress}>
+                    Delete
+                </Button>
+            ]: []}
+            >
+         
+            <List.Item.Meta
+        
+            title={
+            <Typography.Text>{`${item.Product.Name}(${item.Product.Color})/${item.Product.ProductNumber}`}</Typography.Text>
+          }
+          description= {`Per Piece: ${item.PricePerPiece}, / Quantity: ${item.Quantity}`}
+        />
+        <div>
+           Total Price: {item.TotalPrice}
+        </div>
             </List.Item>
         </div>
     )
