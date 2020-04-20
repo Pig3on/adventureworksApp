@@ -45,7 +45,7 @@ export const ItemList = ({match}) => {
                </div>
                <div style={{flex:"1"}}/ >
            </div>
-           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {executeFunctionAfter(removeItem,[item.Id],1)}} item={item} />)}} itemsPerPage={10} />
+           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {executeFunctionAfter(removeItem,[item.Id],10)}} item={item} />)}} itemsPerPage={10} />
            <BillData totalPrice={totalPrice} />
         </div>
     )
