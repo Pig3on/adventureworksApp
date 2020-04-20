@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {getItemsByBilId, removeItem} from '../redux/thunks';
 import { getBillItems, areBillItemsLoading, getTotalPrice } from '../redux/selectors';
 import { ItemListItem } from '../components/ItemListItem';
-import { PageableList } from '../../../ui/components/PageableList/PageableList';
+import { PageableList } from '../../../shared/PageableList/PageableList';
 import { Spin, Button } from 'antd';
 import BillData from '../components/BillData/BillData';
 import UserData from '../components/UserData/UserData';
 import { getSelectedCustomerSelector, customersLoadingSelector } from '../../customer/redux/selectors';
 import AddItem from './AddItem';
 import { useAuth } from '../../auth';
+import { DelayTriggerContext } from '../../../shared/Utils/DelayedAction';
 
 
 export const ItemList = ({match}) => {
@@ -21,7 +22,7 @@ export const ItemList = ({match}) => {
     const customer = useSelector(getSelectedCustomerSelector);
     const totalPrice = useSelector(getTotalPrice);
     const {isLoggedIn } = useAuth()
-
+    const executeFunctionAfter = useContext(DelayTriggerContext)
     useEffect(()=> {
             const { id } = match.params;
             dispatch(getItemsByBilId(id))
@@ -44,7 +45,7 @@ export const ItemList = ({match}) => {
                </div>
                <div style={{flex:"1"}}/ >
            </div>
-           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {dispatch(removeItem(item.Id))}} item={item} />)}} itemsPerPage={10} />
+           <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {executeFunctionAfter(removeItem,[item.Id],1)}} item={item} />)}} itemsPerPage={10} />
            <BillData totalPrice={totalPrice} />
         </div>
     )

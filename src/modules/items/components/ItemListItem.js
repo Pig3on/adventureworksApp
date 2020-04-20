@@ -2,10 +2,11 @@ import React from 'react';
 import { List, Button, Typography } from 'antd';
 
 import styles from './ItemListItem.module.css';
-import { useAuth } from '../../auth';
+
 
 export const ItemListItem = ({item, onPress, onSecondPress,isLoggedin}) => {
-    const {isLoggedIn } = useAuth()
+
+
      return (
         <div onClick={onPress} className={styles.container}>
             <List.Item className={styles.content}

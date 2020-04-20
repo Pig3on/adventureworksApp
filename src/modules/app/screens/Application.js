@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { MainRouter } from '../Router';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import DelayActionWrapper from '../../../shared/Utils/DelayedAction';
 
 const store = createStore();
 
@@ -13,7 +14,9 @@ const Application = () => {
     return (
        <Provider store={store}>
            <PersistGate persistor={persistor}>
-            <MainRouter/>
+                <DelayActionWrapper>
+                    <MainRouter/>
+                </DelayActionWrapper>
            </PersistGate>
        </Provider>
     )

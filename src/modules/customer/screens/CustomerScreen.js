@@ -7,7 +7,7 @@ import CustomerListItem from '../components/CustomerListItem';
 import styles from  './CustomerScreen.module.css';
 import { AccountsScreen } from '../../bills';
 import { setSelectedCustomer } from '../redux/actions';
-import { PageableList } from '../../../ui/components/PageableList/PageableList';
+import { PageableList } from '../../../shared/PageableList/PageableList';
 import SearchFIlter from '../components/SearchFilter/SearchFIlter';
 
 const CustomerScreen = () => {

@@ -41,7 +41,9 @@ export async function addProduct(product) {
 }
 
 export function removeItem(itemId) {
-    return async (dispatch)=> {
+    return async function(dispatch) {
+        console.log('item id is')
+        console.log(itemId)
         await apiClientFactory.getRestApiClient().post('/deleteItem', {id: itemId});
         dispatch(removeItemAction(itemId));
     }

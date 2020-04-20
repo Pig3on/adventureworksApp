@@ -5,7 +5,7 @@ import {getBills} from '../redux/thunks';
 import { billsSelector, billsLoading } from '../redux/selectors';
 import { BillItem } from '../components/BillItem';
 import { Spin } from 'antd';
-import { PageableList } from '../../../ui/components/PageableList/PageableList';
+import { PageableList } from '../../../shared/PageableList/PageableList';
 import { useHistory } from 'react-router-dom';
 export const BillsScreen = () => {
     const selectedCustomer = useSelector(getSelectedCustomerSelector);
