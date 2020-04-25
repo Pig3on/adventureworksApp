@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Select, Button, Form } from 'antd';
 import { loadCategories, loadSubCategories, loadProducts, addProduct } from '../redux/thunks';
+import { withRouter } from 'react-router-dom';
 const {Option} = Select;
 const formDefaultValue = {
     categories: [],
@@ -127,4 +128,4 @@ function AddItem({billId}) {
     )
 }
 
-export default AddItem
+export default withRouter(AddItem);

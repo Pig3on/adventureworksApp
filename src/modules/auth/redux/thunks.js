@@ -1,6 +1,6 @@
 import { registerError, registerLoading, registerDone, loginError, loginLoading, loginDone, updateDone, updateLoading, updateError } from "./actions";
 import { apiClientFactory } from "../../api/services/apiClientFactory";
-import { history } from "../../app/Router";
+import { history } from "../../../index";
 
 export function registerUser(user) {
    return async (dispatch)=> {
@@ -20,7 +20,6 @@ export function registerUser(user) {
 
 export function loginUser(userInput) {
     return async (dispatch)=> {
-
         try {
             dispatch(loginLoading());
   
@@ -36,7 +35,7 @@ export function loginUser(userInput) {
             }
         
             dispatch(loginDone(user));
-            history.replace('/');
+            
         }catch (e){
             dispatch(loginError(e.message));
         }

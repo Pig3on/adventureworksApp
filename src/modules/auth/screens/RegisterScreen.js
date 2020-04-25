@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {Form,Input,Button, Upload, message} from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, updateUser } from '../redux/thunks';
-import { getCurrentUserSelector } from '../redux/selectors';
+import { getCurrentUserSelector, isLoadingSelector, errorSelector } from '../redux/selectors';
+import { withRouter, useHistory } from 'react-router-dom';
+import { useNavigateAfterAction } from '../../../shared/Utils/navigateAfterActon';
 
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
@@ -43,6 +45,7 @@ const dummyRequest = ({ file, onSuccess }) => {
 const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 function RegisterScreen({edit}) {
     const [imageUrl,setImageUrl]= useState(null);
+    const [isSent,setIsSent] = useNavigateAfterAction(isLoadingSelector,errorSelector,'/')
     const dispatch = useDispatch();
     let currentUser = useSelector(getCurrentUserSelector);
     const onFinish = (values) => {
@@ -58,6 +61,7 @@ function RegisterScreen({edit}) {
         }else {
           dispatch(registerUser(user));
         }
+        setIsSent(true);
       };
     
       const onFinishFailed = errorInfo => {
@@ -126,4 +130,4 @@ function RegisterScreen({edit}) {
     )
 }
 
-export default RegisterScreen
+export default withRouter(RegisterScreen);

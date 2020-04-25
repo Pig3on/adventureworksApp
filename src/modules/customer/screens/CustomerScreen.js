@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Spin, Modal } from 'antd';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCustomers } from '../redux/thunks';
 import { getCustomersSelector, customersLoadingSelector } from '../redux/selectors';
 import CustomerListItem from '../components/CustomerListItem';
@@ -9,6 +9,7 @@ import { AccountsScreen } from '../../bills';
 import { setSelectedCustomer } from '../redux/actions';
 import { PageableList } from '../../../shared/PageableList/PageableList';
 import SearchFIlter from '../components/SearchFilter/SearchFIlter';
+import { withRouter } from 'react-router-dom';
 
 const CustomerScreen = () => {
     const dispatch = useDispatch();
@@ -46,4 +47,4 @@ const CustomerScreen = () => {
     )
 }
 
-export default CustomerScreen;
+export default withRouter(CustomerScreen);

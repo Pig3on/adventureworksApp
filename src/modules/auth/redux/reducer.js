@@ -22,7 +22,6 @@ const error = createReducer(null, builder => {
     .addCase(loginError, (_, action)=> action.payload);
 })
 
-
 export const persistConfig = {
     key: 'auth',
     storage,

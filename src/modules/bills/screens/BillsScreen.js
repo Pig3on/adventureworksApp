@@ -6,7 +6,7 @@ import { billsSelector, billsLoading } from '../redux/selectors';
 import { BillItem } from '../components/BillItem';
 import { Spin } from 'antd';
 import { PageableList } from '../../../shared/PageableList/PageableList';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 export const BillsScreen = () => {
     const selectedCustomer = useSelector(getSelectedCustomerSelector);
     const bills = useSelector(billsSelector);
@@ -28,3 +28,5 @@ export const BillsScreen = () => {
         </div>
     )
 }
+
+export default withRouter(BillsScreen);

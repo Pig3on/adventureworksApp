@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Form,Input,Button} from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/thunks';
 
-import { getCurrentUserSelector } from '../redux/selectors';
+import { errorSelector, isLoadingSelector } from '../redux/selectors';
+import { withRouter, useHistory } from 'react-router-dom';
+import { useNavigateAfterAction } from '../../../shared/Utils/navigateAfterActon';
 
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
@@ -24,12 +26,16 @@ const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 function LoginScreen() {
     const dispatch = useDispatch();
   
+    const [isSent,setIsSent] = useNavigateAfterAction(isLoadingSelector,errorSelector,'/')
+  
+
     const onFinish = (values) => {
       const user = {
         username: values.username,
         password: values.password,
       }
         dispatch(loginUser(user));
+        setIsSent(true);
       };
     
       const onFinishFailed = errorInfo => {
@@ -55,4 +61,4 @@ function LoginScreen() {
     )
 }
 
-export default LoginScreen
+export default withRouter(LoginScreen)
