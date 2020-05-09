@@ -22,11 +22,9 @@ class ApiClientFactory {
   setupIntereptors(client) {
     const restClient = client || this.restApiClient;
     restClient.interceptors.request.use(async config => {
- 
       if (!this.token) {
-        return config;
+       return config;
       }
-
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${this.token}`;
       return config;

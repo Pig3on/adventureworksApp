@@ -47,10 +47,10 @@ export function updateUser(user) {
     return async (dispatch)=> {
         try {
              dispatch(updateLoading());
-             
-             const auth = await apiClientFactory.getRestApiClient().post("/editUser", user);
-
-             dispatch(updateDone(auth.data))
+              
+             const userResp = await apiClientFactory.getRestApiClient().post("/editUser", user);
+             console.log(userResp);
+             dispatch(updateDone(userResp.data))
         } catch(e) {
             dispatch(updateError(e.message));
         }

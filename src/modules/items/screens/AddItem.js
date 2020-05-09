@@ -8,7 +8,7 @@ const formDefaultValue = {
     subcategories: [],
     products: [],
 }
-function AddItem({billId}) {
+function AddItem({billId, onDataSave}) {
     const [isFormLoading, setIsFormLoading] =useState(false);
     const [formData, setFormData] = useState(formDefaultValue);
     const formSubmitData = useRef({});
@@ -23,7 +23,7 @@ function AddItem({billId}) {
         }
         addProduct(product).then(()=> {
             alert("Product added")
-            
+            onDataSave();
         }).catch((e)=> {
             console.log(e);
             alert("error fetching product");
@@ -74,7 +74,7 @@ function AddItem({billId}) {
         <form onSubmit={onSubmit}>
             <Form.Item>
             <div>Category</div>
-           <Select disabled={isFormLoading}  style={{ width: 120 }} onChange={onCategoryChange}>
+           <Select disabled={isFormLoading}  style={{ width: '100%' }} onChange={onCategoryChange}>
              {formData.categories.map(category => {
                  return (
                     <Option value={category.Id}>{category.Name}</Option>
@@ -84,7 +84,7 @@ function AddItem({billId}) {
             </Form.Item>
             <Form.Item>
             <div>Subcategory</div>
-            <Select disabled={isFormLoading} style={{ width: 120 }} onChange={onSubCategoryChange}>
+            <Select disabled={isFormLoading} style={{  width: '100%' }} onChange={onSubCategoryChange}>
             {formData.subcategories.map(subcategory => {
                  return (
                     <Option value={subcategory.Id}>{subcategory.Name}</Option>
@@ -96,7 +96,7 @@ function AddItem({billId}) {
 
             
             <div>Products</div>
-            <Select disabled={isFormLoading} style={{ width: 120 }} onChange={onProductChange}>
+            <Select disabled={isFormLoading} style={{  width: '100%'}} onChange={onProductChange}>
             {formData.products.map(product => {
                  return (
                     <Option value={product.Id}>{product.Name}</Option>
@@ -106,7 +106,7 @@ function AddItem({billId}) {
             </Form.Item>
             <Form.Item>
             <div>Quantity</div>
-            <Select defaultValue={1} disabled={isFormLoading} style={{ width: 120 }} onChange={onQuantityChange}>
+            <Select defaultValue={1} disabled={isFormLoading} style={{  width: '100%' }} onChange={onQuantityChange}>
                 <Option value={1}>1</Option>
                 <Option value={2}>2</Option>
                 <Option value={3}>3</Option>

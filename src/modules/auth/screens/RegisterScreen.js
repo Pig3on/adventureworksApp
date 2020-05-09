@@ -44,10 +44,11 @@ const dummyRequest = ({ file, onSuccess }) => {
 
 const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 function RegisterScreen({edit}) {
-    const [imageUrl,setImageUrl]= useState(null);
+    let currentUser = useSelector(getCurrentUserSelector);
+    const [imageUrl,setImageUrl]= useState(currentUser ? currentUser.img : null);
     const [isSent,setIsSent] = useNavigateAfterAction(isLoadingSelector,errorSelector,'/')
     const dispatch = useDispatch();
-    let currentUser = useSelector(getCurrentUserSelector);
+    
     const onFinish = (values) => {
       const user = {
         name: values.name,
@@ -56,7 +57,7 @@ function RegisterScreen({edit}) {
         img: imageUrl,
       }
         if(edit){
-          user.id = currentUser.Id; 
+          user.id = currentUser.id; 
           dispatch(updateUser(user));
         }else {
           dispatch(registerUser(user));
@@ -122,7 +123,7 @@ function RegisterScreen({edit}) {
           </Upload>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
-                Register
+                {edit ? "Update" : "Register"}
             </Button>
          </Form.Item>
         </Form>

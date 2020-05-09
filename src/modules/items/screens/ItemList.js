@@ -4,7 +4,7 @@ import {getItemsByBilId, removeItem} from '../redux/thunks';
 import { getBillItems, areBillItemsLoading, getTotalPrice } from '../redux/selectors';
 import { ItemListItem } from '../components/ItemListItem';
 import { PageableList } from '../../../shared/PageableList/PageableList';
-import { Spin, Button } from 'antd';
+import { Spin, Button, Modal } from 'antd';
 import BillData from '../components/BillData/BillData';
 import UserData from '../components/UserData/UserData';
 import { getSelectedCustomerSelector, customersLoadingSelector } from '../../customer/redux/selectors';
@@ -24,6 +24,13 @@ function ItemList({match}) {
     const totalPrice = useSelector(getTotalPrice);
     const {isLoggedIn } = useAuth();
     const executeFunctionAfter = useContext(DelayTriggerContext);
+
+    const showForm = (value) => {
+        setIsFormShown(true);
+    }
+    const closeForm = () => {
+        setIsFormShown(false);
+    }
     useEffect(()=> {
             const { id } = match.params;
             dispatch(getItemsByBilId(id))
@@ -37,13 +44,24 @@ function ItemList({match}) {
     }
  
     return ( 
-        <div style={{display:'flex', flexDirection:'row'}}>
-        <div style={{flex:"1"}} />
         <div>
+        <div style={{ display:"flex", alignItems:'center', justifyContent:'center', flexDirection: 'row'}}>
             <UserData customer={customer} loading={isCustomerLoading} billId={match.params.id}/>
-             {isLoggedIn && <Button onClick={()=> {setIsFormShown(!isFormShown)}}>{isFormShown ? "Hide" : "Add item to account"}</Button>} 
-             {isFormShown && <AddItem billId={match.params.id} />}
-            <div style={{flex:"1"}}/>
+            <div>
+            {isLoggedIn && <Button onClick={showForm}>{"Add item to account"}</Button>} 
+            <Modal
+            title="Add item"
+            visible={isFormShown}
+            footer={[
+                <Button key="back" onClick={closeForm}>
+                  Return
+                </Button>,
+              ]}
+            onCancel={closeForm}
+            >
+                <AddItem billId={match.params.id} onDataSave={closeForm} />
+            </Modal>
+            </div>
         </div>
             <PageableList items={items} renderItem={(item)=> {return (<ItemListItem isLoggedin={isLoggedIn} onSecondPress={()=> {executeFunctionAfter(removeItem,[item.Id],10)}} item={item} />)}} itemsPerPage={10} />
             <BillData totalPrice={totalPrice} />
