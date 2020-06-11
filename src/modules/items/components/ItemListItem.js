@@ -4,29 +4,29 @@ import { List, Button, Typography } from 'antd';
 import styles from './ItemListItem.module.css';
 
 
-export const ItemListItem = ({item, onPress, onSecondPress,isLoggedin}) => {
+export const ItemListItem = ({ item, onPress, onSecondPress, isLoggedin }) => {
 
 
-     return (
+    return (
         <div onClick={onPress} className={styles.container}>
             <List.Item className={styles.content}
-               actions={isLoggedin ? [
-                <Button type="danger" onClick={onSecondPress}>
-                    Delete
+                actions={isLoggedin ? [
+                    <Button type="danger" onClick={onSecondPress}>
+                        Delete
                 </Button>
-            ]: []}
+                ] : []}
             >
-         
-            <List.Item.Meta
-        
-            title={
-            <Typography.Text>{`${item.Product.Name}(${item.Product.Color})/${item.Product.ProductNumber}`}</Typography.Text>
-          }
-          description= {`Per Piece: ${item.PricePerPiece}, / Quantity: ${item.Quantity}`}
-        />
-        <div>
-           Total Price: {item.TotalPrice}
-        </div>
+
+                <List.Item.Meta
+
+                    title={
+                        <Typography.Text>{`${item.Product.Name}(${item.Product.Color})/${item.Product.ProductNumber}`}</Typography.Text>
+                    }
+                    description={`Per Piece: ${item.PricePerPiece}, / Quantity: ${item.Quantity}`}
+                />
+                <div>
+                    Total Price: {item.TotalPrice}
+                </div>
             </List.Item>
         </div>
     )

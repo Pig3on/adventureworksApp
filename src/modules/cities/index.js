@@ -1,3 +1,3 @@
-export {reducer as CitiesReducer} from './redux/reducer';
+export { reducer as CitiesReducer } from './redux/reducer';
 
-export {makeSureCitiesExist} from './redux/thunks';
+export { makeSureCitiesExist } from './redux/thunks';

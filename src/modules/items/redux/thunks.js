@@ -1,14 +1,14 @@
-import { itemsLoading, itemsDone, itemsError,removeItemAction } from "./actions"
+import { itemsLoading, itemsDone, itemsError, removeItemAction } from "./actions"
 import { makeSureSelectedCustomerExists } from "../../customer/redux/thunks";
 import { apiClientFactory } from "../../api";
 
 export function getItemsByBilId(billId) {
-    return async(dispatch) => {
-        
+    return async (dispatch) => {
+
         try {
             dispatch(makeSureSelectedCustomerExists(billId));
             dispatch(itemsLoading());
-            
+
             const billItems = await apiClientFactory.getRestApiClient().get('/billitems/' + billId);
 
             dispatch(itemsDone(billItems.data))
@@ -21,8 +21,8 @@ export function getItemsByBilId(billId) {
 
 
 export async function loadCategories() {
-   const data = await apiClientFactory.getRestApiClient().get('/categories');
-   return data.data;
+    const data = await apiClientFactory.getRestApiClient().get('/categories');
+    return data.data;
 }
 
 export async function loadSubCategories(categoryId) {
@@ -41,10 +41,8 @@ export async function addProduct(product) {
 }
 
 export function removeItem(itemId) {
-    return async function(dispatch) {
-        console.log('item id is')
-        console.log(itemId)
-        await apiClientFactory.getRestApiClient().post('/deleteItem', {id: itemId});
+    return async function (dispatch) {
+        await apiClientFactory.getRestApiClient().post('/deleteItem', { id: itemId });
         dispatch(removeItemAction(itemId));
     }
 }

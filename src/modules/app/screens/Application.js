@@ -11,13 +11,13 @@ const persistor = persistStore(store);
 
 const Application = () => {
     return (
-            <Provider store={store}>
-                <PersistGate persistor={persistor}>
-                        <DelayActionWrapper>
-                            <MainApp/>
-                        </DelayActionWrapper>
-                </PersistGate>
-            </Provider>
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>
+                <DelayActionWrapper>
+                    <MainApp />
+                </DelayActionWrapper>
+            </PersistGate>
+        </Provider>
     )
 }
 

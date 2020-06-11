@@ -1,10 +1,10 @@
 import React from 'react'
 
-function BillData({totalPrice}) {
+function BillData({ totalPrice }) {
     return (
         <div>
             <div>
-               ${totalPrice}
+                ${totalPrice}
             </div>
         </div>
     )

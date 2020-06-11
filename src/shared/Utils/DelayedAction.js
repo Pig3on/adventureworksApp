@@ -20,9 +20,6 @@ function DelayActionWrapper({children}) {
           
             setCount(count + 1);
             if(count === maxValue && actionToExecute) {
-                console.log(params)
-
-                console.log(actionToExecute)
                 dispatch(actionToExecute(...params)); 
                 clearInterval(interval);
                 setIsTicking(false);

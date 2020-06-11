@@ -23,13 +23,13 @@ class ApiClientFactory {
     const restClient = client || this.restApiClient;
     restClient.interceptors.request.use(async config => {
       if (!this.token) {
-       return config;
+        return config;
       }
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${this.token}`;
       return config;
     },
-    error => Promise.reject(error));
+      error => Promise.reject(error));
   }
 
   setTokens(token) {
@@ -37,14 +37,14 @@ class ApiClientFactory {
     this.setupIntereptors(undefined);
   }
   getRestApiClient() {
-      if(this.restApiClient) {
-          return this.restApiClient
-      }
+    if (this.restApiClient) {
+      return this.restApiClient
+    }
     this.restApiClient = this.createRestClientInstance();
     return this.restApiClient;
   }
 
-  getToknes(){
+  getToknes() {
     return this.token;
   }
 }
