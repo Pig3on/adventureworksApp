@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { Form, Input, Button, Upload, message } from 'antd'
+import { Form, Input, Button, Upload, message, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, updateUser } from '../redux/thunks';
 import { getCurrentUserSelector, isLoadingSelector, errorSelector } from '../redux/selectors';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { useNavigateAfterAction } from '../../../shared/Utils/navigateAfterActon';
+
 
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
@@ -48,7 +49,7 @@ function RegisterScreen({ edit }) {
   const [imageUrl, setImageUrl] = useState(currentUser ? currentUser.img : null);
   const [isSent, setIsSent] = useNavigateAfterAction(isLoadingSelector, errorSelector, '/')
   const dispatch = useDispatch();
-
+  const isLoading = useSelector(isLoadingSelector);
   const onFinish = (values) => {
     const user = {
       name: values.name,
@@ -68,6 +69,13 @@ function RegisterScreen({ edit }) {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
+
+  if(isLoading) {
+    return (
+      <Spin/>
+    )
+  }
+
 
   function beforeUpload(file) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';

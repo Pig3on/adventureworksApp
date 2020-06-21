@@ -22,7 +22,6 @@ function AddItem({ billId, onDataSave }) {
             quantity: formSubmitData.current.quantity,
         }
         addProduct(product).then(() => {
-            alert("Product added")
             onDataSave();
         }).catch((e) => {
             alert("error adding product");

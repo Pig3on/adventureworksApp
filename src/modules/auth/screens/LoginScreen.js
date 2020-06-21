@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Input, Button } from 'antd'
+import React from 'react'
+import { Form, Input, Button, Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/thunks';
 
 import { errorSelector, isLoadingSelector } from '../redux/selectors';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { useNavigateAfterAction } from '../../../shared/Utils/navigateAfterActon';
 
 const tailLayout = {
@@ -27,7 +27,7 @@ function LoginScreen() {
   const dispatch = useDispatch();
 
   const [isSent, setIsSent] = useNavigateAfterAction(isLoadingSelector, errorSelector, '/')
-
+  const isLoading = useSelector(isLoadingSelector);
 
   const onFinish = (values) => {
     const user = {
@@ -41,6 +41,12 @@ function LoginScreen() {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
+
+  if(isLoading) {
+    return (
+      <Spin/>
+    )
+  }
 
   return (
     <div style={smth}>

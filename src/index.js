@@ -2,19 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Application } from './modules/app';
 
-import { BrowserRouter } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-
-
-export const history = createBrowserHistory();
 ReactDOM.render(
-    <BrowserRouter history={history}>
-      <Application />
-    </BrowserRouter>,
+      <Application />,
   document.getElementById('root')
 );
 
